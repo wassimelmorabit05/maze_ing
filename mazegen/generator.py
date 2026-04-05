@@ -22,7 +22,6 @@ class MazeGenerator:
         self.maze = maze
         self.seed = seed
 
-
     def _validate_start_end_cells(self) -> None:
         """Validate entry and exit after applying the 42 pattern."""
         start_x, start_y = self.maze.entry
@@ -88,7 +87,7 @@ class MazeGenerator:
 
     def _add_extra_openings(self) -> None:
         """Force creation of loops when PERFECT=False."""
-        attempts = max(1, (self.maze.width * self.maze.height) // 2)
+        attempts = max(1, (self.maze.width * self.maze.height) // 5)
 
         for _ in range(attempts):
             x = random.randint(0, self.maze.width - 1)
@@ -129,10 +128,6 @@ class MazeGenerator:
         start_x, start_y = self.maze.entry
         self.maze.grid[start_y][start_x].visited = True
         stack: list[tuple[int, int]] = [(start_x, start_y)]
-
-        if animate and frame_callback is not None:
-            frame_callback(self.maze, (start_x, start_y))
-            time.sleep(delay)
 
         while stack:
             x, y = stack[-1]
